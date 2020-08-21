@@ -1,0 +1,143 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Crypto Num-Juggle</title>
+  <script src="https://cdn.jsdelivr.net/npm/@portis/web3@2.0.0-beta.56/umd/index.js"  integrity="sha256-YglsZuKbHpe2+U4HYCd3juAiADRTU7Ys2AGfCGY+Nmo=" crossorigin="anonymous"> </script>
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.11/dist/web3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <link href="{% static 'cryptonumjuggle/style/main.css' %}" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div class="container">
+    <h2 class="title">Crypto Num-Juggle</h2>
+   
+  </div>
+  <br>
+  
+  <br>
+  <div class="container">
+    <div class="heading">
+     
+      <div class="scores-container">
+        <div class="score-container">0</div>
+        <div class="best-container">0</div>
+      </div>
+      <img id="logop" style="float: right; border-radius: 50%; margin-right:60px; " height="75px" width="75px" src="{% static 'cryptonumjuggle/portis.jpg' %}"  >
+      <a id="logb" style="display: none;" class="logout-b">Log Out</a>
+    </div>
+
+    <div class="above-game">
+      <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
+     <br>
+      <a class="restart-button">New Game</a>
+    </div>
+    <div>
+      <p class="game-explanation">
+        <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+      </p>
+      Created by <a>Team R2D2</a>
+      <p>
+    </div>
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	        <a class="keep-playing-button">Keep going</a>
+          <a class="retry-button">Try again</a>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+
+      <div class="tile-container">
+
+      </div>
+    </div>
+    </p>
+  </div>
+  <script> 
+
+  const portis = new Portis('169229c9-bfb8-4caf-adb2-8494887b8b7d', "maticMumbai");
+  const web3 = new Web3(portis.provider);
+
+     // portis.showPortis();
+
+$('#logop').on('click', function () {  
+        $("#logop").toggleClass('flip-full');
+        portis.showPortis();
+    
+    portis.isLoggedIn().then(({ error, result }) => {
+    if (result == true){
+      alert("User Logged in");
+    $('#logb').css({'display':'block'});
+    }
+    else{
+      $('#logb').css({'display':'none'});
+      alert("User is not Logged in");
+    
+    }
+  });
+});
+
+/*  
+ portis.onActiveWalletChanged(walletAddress => {
+      console.log('Active wallet address:', walletAddress);
+    });
+*/
+
+//logout function
+$('#logb').on('click', function () {  
+        portis.logout(); 
+        portis.onLogout(() => {
+      alert('User logged out');
+   
+    });
+  });
+
+  </script>
+  <script src="{% static 'cryptonumjuggle/js/bind_polyfill.js'%}"></script>
+  <script src="{% static 'cryptonumjuggle/js/classlist_polyfill.js'%}"></script>
+  <script src="{% static 'cryptonumjuggle/js/animframe_polyfill.js'%}"></script>
+  <script src="{% static 'cryptonumjuggle/js/keyboard_input_manager.js'%}"></script>
+  <script src="{% static 'cryptonumjuggle/js/html_actuator.js'%}"></script>
+  <script src="{% static 'cryptonumjuggle/js/grid.js'%}"></script>
+  <script src="{% static 'cryptonumjuggle/js/tile.js'%}"></script>
+  <script src="{% static 'cryptonumjuggle/js/local_storage_manager.js'%}"></script>
+  <script src="{% static 'cryptonumjuggle/js/game_manager.js'%}"></script>
+  <script src="{% static 'cryptonumjuggle/js/application.js'%}"></script>
+</body>
+</html>
