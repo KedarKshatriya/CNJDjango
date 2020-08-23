@@ -1,11 +1,20 @@
+var jQueryScript = document.createElement('script');  
+jQueryScript.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js');
+document.head.appendChild(jQueryScript);
+//to send to sqlite left
 window.fakeStorage = {
   _data: {},
 
+  //if else according to ids .... i.e from sqlite or blockchain
+//position
   setItem: function (id, val) {
+    console.log("setting some value: "+String(val)+" with id:"+String(id));
     return this._data[id] = String(val);
   },
-
+ 
+  //best score fetching
   getItem: function (id) {
+    console.log("getting some value: "+this._data[id]+" with id:"+String(id) );
     return this._data.hasOwnProperty(id) ? this._data[id] : undefined;
   },
 
@@ -23,7 +32,7 @@ function LocalStorageManager() {
   this.gameStateKey     = "gameState";
 
   var supported = this.localStorageSupported();
-  this.storage = supported ? window.localStorage : window.fakeStorage;
+  this.storage = window.fakeStorage; //supported ? window.localStorage : 
 }
 
 LocalStorageManager.prototype.localStorageSupported = function () {

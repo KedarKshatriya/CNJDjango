@@ -33,7 +33,7 @@ GameManager.prototype.isGameTerminated = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
-  var previousState = this.storageManager.getGameState();
+  var previousState = this.storageManager.getGameState(); //we havve to work with sqlite here
 
   // Reload the game from a previous game if present
   if (previousState) {
