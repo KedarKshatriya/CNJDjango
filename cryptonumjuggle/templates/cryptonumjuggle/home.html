@@ -100,14 +100,15 @@
     store.setItem("wltaddr",walletAddress);
     $('#logb').css({'display':'block'});
     alert("User Logged in");
-    
+    new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager);
     $("#gamecon").css({'display':'block'})
   });
   portis.onLogout(() => {
           $('#logb').css({'display':'none'});
           alert('User logged out');
           $("#gamecon").css({'display':'none'})
-   
+          store.setItem("wltaddr","0");
+
     });
 
   $('#logop').on('click', function () {  

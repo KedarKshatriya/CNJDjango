@@ -30,7 +30,7 @@ def setitem(request):
 def getitem(request):
     if request.method == "GET":
         wltaddr = request.GET.get("wltaddr")
-
+        print("wltaddre:"+str(wltaddr))
         if(wltaddr!="0"):
             wltuser = userdata.objects.filter(wltaddr = str(wltaddr))
             if(wltuser.exists()):
