@@ -153,7 +153,7 @@ hr {
   -ms-user-select: none;
   -ms-touch-action: none;
   touch-action: none;
-  background: #424241;
+  background: #424241;  
   border-radius: 6px;
   width: 500px;
   height: 500px;
@@ -608,7 +608,7 @@ hr {
     -ms-user-select: none;
     -ms-touch-action: none;
     touch-action: none;
-    background: #bbada0;
+    background: #424241;
     border-radius: 6px;
     width: 280px;
     height: 280px;

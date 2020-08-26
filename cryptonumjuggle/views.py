@@ -40,5 +40,18 @@ def getitem(request):
                 return HttpResponse("NoUser")
         
     return HttpResponse("get")
-    
+
+def removeitem(request):
+    if request.method == "GET":
+        wltaddr = request.GET.get("wltaddr")
+        print("wltaddr:"+str(wltaddr))
+        if(wltaddr!="0"):
+            wltuser = userdata.objects.filter(wltaddr = str(wltaddr))
+            if(wltuser.exists()):
+                wltuser.update(gamestate="")
+                return HttpResponse("Cleared")
+            else:
+                return HttpResponse("NoUser")
+        
+    return HttpResponse("remove") 
    

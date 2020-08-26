@@ -44,7 +44,7 @@ GameManager.prototype.setup = function () {
   var store = window.localStorage;
 
   var previousState = this.storageManager.getGameState(); //we havve to work with sqlite here
-  alert("Previous state:"+String(previousState));
+  //alert("Previous state:"+String(previousState));
   // Reload the game from a previous game if present
   if (previousState) {
     this.grid        = new Grid(previousState.grid.size,
