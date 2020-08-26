@@ -47,7 +47,7 @@
       Created by <a>Team R2D2</a>
       <p>
     </div>
-    <div class="game-container">
+    <div id="gamecon" style="display: none;" class="game-container">
       <div class="game-message">
         <p></p>
         <div class="lower">
@@ -90,45 +90,40 @@
     </p>
   </div>
   <script> 
-/*
+  var store = window.localStorage;
+
   const portis = new Portis('169229c9-bfb8-4caf-adb2-8494887b8b7d', "maticMumbai");
   const web3 = new Web3(portis.provider);
-*/
-     // portis.showPortis();
-/*
-$('#logop').on('click', function () {  
-        $("#logop").toggleClass('flip-full');
-        portis.showPortis();
-    
-    portis.isLoggedIn().then(({ error, result }) => {
-    if (result == true){
-      alert("User Logged in");
+  portis.showPortis();
+  //key = 0 to check if loggedin or not
+  portis.onLogin((walletAddress, email) => {
+    store.setItem("wltaddr",walletAddress);
     $('#logb').css({'display':'block'});
-    }
-    else{
-      $('#logb').css({'display':'none'});
-      alert("User is not Logged in");
+    alert("User Logged in");
     
-    }
+    $("#gamecon").css({'display':'block'})
   });
-});
-*/
-/*  
- portis.onActiveWalletChanged(walletAddress => {
-      console.log('Active wallet address:', walletAddress);
-    });
-*/
-
-//logout function
-/*
-$('#logb').on('click', function () {  
-        portis.logout(); 
-        portis.onLogout(() => {
-      alert('User logged out');
+  portis.onLogout(() => {
+          $('#logb').css({'display':'none'});
+          alert('User logged out');
+          $("#gamecon").css({'display':'none'})
    
     });
+
+  $('#logop').on('click', function () {  
+        $("#logop").toggleClass('flip-full');
+        portis.showPortis();
   });
-*/
+
+
+//logout function
+
+$('#logb').on('click', function () {  
+        portis.logout(); 
+     
+       
+  });
+
   </script>
   <script src="{% static 'cryptonumjuggle/js/bind_polyfill.js'%}"></script>
   <script src="{% static 'cryptonumjuggle/js/classlist_polyfill.js'%}"></script>

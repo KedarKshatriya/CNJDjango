@@ -1,29 +1,91 @@
 var jQueryScript = document.createElement('script');  
 jQueryScript.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js');
 document.head.appendChild(jQueryScript);
+
+walletaddress = ""
+data2= {}
+var mainstore = window.localStorage;
+mainstore.setItem("wltaddr","0");
+
+
+String.prototype.replaceAll = function(str1, str2, ignore) 
+{
+    return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
+} 
+
+setInterval(function(){ 
+  var gamevarstate =  data2["gameState"].replaceAll('"','*');
+  console.log("Testing: "+JSON.stringify(gamevarstate));
+
+  $.ajax({
+    type: "POST",  
+    url: "http://127.0.0.1:8000/setitem/",
+    data: {"gameState" : JSON.stringify(gamevarstate),
+            "wltaddr" : String(mainstore.getItem("wltaddr"))},
+    success: function(){
+      console.log("Success POST")
+    },
+    error: function(){
+      console.log("POST failed")
+    }
+    });
+
+}, 6000);
+
+
+  
+
+
+function renderList(data) {
+alert(data);
+}
+
+
+function bestScoreSave(){
+  //code to save blockchain 
+}
+
 //to send to sqlite left
+
+//etimer = gamestate
+//ltime = getBestScore //on blockchain
+
 window.fakeStorage = {
-  _data: {},
+  
 
   //if else according to ids .... i.e from sqlite or blockchain
 //position
   setItem: function (id, val) {
-    console.log("setting some value: "+String(val)+" with id:"+String(id));
-    return this._data[id] = String(val);
+      //console.log("setting some value: "+String(val)+" with id:"+String(id));
+      return data2[id] = String(val);
+    
   },
  
   //best score fetching
   getItem: function (id) {
-    console.log("getting some value: "+this._data[id]+" with id:"+String(id) );
-    return this._data.hasOwnProperty(id) ? this._data[id] : undefined;
+    if(String(id)=="gameState"){
+        $.ajax({
+          type: 'GET',
+          url: "http://127.0.0.1:8000/getitem/",
+          data: {"wltaddr" : String(mainstore.getItem("wltaddr"))},
+          success:  function(data){
+            var gamestatevar = String(data).replaceAll('*','"');
+            console.log("getting data from server: "+String(data).replaceAll('*','"'));
+            return gamestatevar;
+            //return data2.hasOwnProperty(id) ? data2[id] : undefined
+          }
+            });
+    }
+    console.log("getting some value: "+data2[id]+" with id:"+String(id) );
+    ;
   },
 
   removeItem: function (id) {
-    return delete this._data[id];
+    return delete data2[id];
   },
 
   clear: function () {
-    return this._data = {};
+    return data2 = {};
   }
 };
 
