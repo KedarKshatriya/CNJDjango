@@ -11,18 +11,15 @@ mainstore.setItem("wltaddr","0");
 
 var count = 1
 
-String.prototype.replaceAll = function(str1, str2, ignore) 
-{
-    return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
-} 
-
 setInterval(function(){ 
-  var gamevarstate =  data2["gameState"].replaceAll('"','*');
+  //var gamevarstate = data2["gameState"].replace(/"/g, "*");
+  var gamevarstate =  data2["gameState"].replace(/"/g, "@");
+  //console.log(gamevarstate);
   //console.log("Testing: "+JSON.stringify(gamevarstate));
   if(count==2 || count==1){
     $.ajax({
-      type: "POST",  
-      url: "https://12bb146ce885.ngrok.io/setitem/",
+      type: "POST",   
+      url: "https://d51ddcd7e654.ngrok.io/setitem/",
       data: {"gameState" : JSON.stringify(gamevarstate),
               "wltaddr" : String(mainstore.getItem("wltaddr"))},
       async:false,
@@ -37,7 +34,7 @@ setInterval(function(){
   else {
     $.ajax({
       type: "POST",  
-      url: "https://12bb146ce885.ngrok.io/setitem/",
+      url: "https://d51ddcd7e654.ngrok.io/setitem/",
       data: {"gameState" : JSON.stringify(gamevarstate),
               "wltaddr" : String(mainstore.getItem("wltaddr"))},
       success: function(){
@@ -48,6 +45,10 @@ setInterval(function(){
       }
       });
     }
+    if(count<=2){
+      count=count+1
+    }
+    
   
   
 }, 4000);
@@ -89,11 +90,11 @@ window.fakeStorage = {
         $.ajax({
           type: 'GET',
           async: false,
-          url: "https://12bb146ce885.ngrok.io/getitem/",
+          url: "https://d51ddcd7e654.ngrok.io/getitem/",
           data: {"wltaddr" : String(mainstore.getItem("wltaddr"))},
           
           success:  function(data){
-            var gamestatevar = String(data).replaceAll('*','"');
+            var gamestatevar = String(data).replace(/@/g, '"');
             console.log("getting data from server: "+gamestatevar.slice(1,-1));
             //alert("geting from the server: "+gamestatevar.slice(1,-1));
             data2[id] = String(gamestatevar.slice(1,-1));
@@ -113,11 +114,11 @@ window.fakeStorage = {
   },
 
   removeItem: function (id) {
-    alert(id);
+    //alert(id);
     $.ajax({
       type: 'GET',
       async: false,
-      url: "https://12bb146ce885.ngrok.io/removeitem/",
+      url: "https://d51ddcd7e654.ngrok.io/removeitem/",
       data: {"wltaddr" : String(mainstore.getItem("wltaddr"))},
       
       success:  function(data){
