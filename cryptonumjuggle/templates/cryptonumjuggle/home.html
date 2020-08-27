@@ -92,13 +92,14 @@
   </div>
   <script> 
   var store = window.localStorage;
-
+  var portiswltaddr;
   const portis = new Portis('169229c9-bfb8-4caf-adb2-8494887b8b7d', "maticMumbai");
   const web3 = new Web3(portis.provider);
-
+  
   portis.showPortis();
   //key = 0 to check if loggedin or not
   portis.onLogin((walletAddress, email) => {
+    portiswltaddr = walletAddress;
     store.setItem("wltaddr",walletAddress);
     $('#logb').css({'display':'block'});
     alert("User Logged in");

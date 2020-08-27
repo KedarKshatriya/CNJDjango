@@ -16,13 +16,16 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
 // Restart the game
 GameManager.prototype.restart = function () {
+  console.log("This is the walletaddr:"+portiswltaddr);
 
-  var wltaddr = String(mainstore.getItem("wltaddr"))
-  RemixContract.setBest(wltaddr,data2["bestScore"]).then( function(transaction){
+  let tx = RemixContract.setBest(portiswltaddr,Number(data2["bestScore"])).then( function(transaction){
   //console.log(transaction);
-  alert("Sent");
+  console.log("Best Scores Updated");
+  
   return transaction;
   });
+
+  
 
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
