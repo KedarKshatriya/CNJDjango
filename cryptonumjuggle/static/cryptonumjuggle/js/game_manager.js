@@ -16,6 +16,14 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
 // Restart the game
 GameManager.prototype.restart = function () {
+
+  var wltaddr = String(mainstore.getItem("wltaddr"))
+  RemixContract.setBest(wltaddr,data2["bestScore"]).then( function(transaction){
+  //console.log(transaction);
+  alert("Sent");
+  return transaction;
+  });
+
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
   this.setup();
@@ -48,7 +56,8 @@ GameManager.prototype.setup = function () {
     this.over        = previousState.over;
     this.won         = previousState.won;
     this.keepPlaying = previousState.keepPlaying;
-  } else {
+  } 
+  else {
     this.grid        = new Grid(this.size);
     this.score       = 0;
     this.over        = false;
@@ -85,11 +94,12 @@ GameManager.prototype.actuate = function () {
   if (this.storageManager.getBestScore() < this.score) {
     this.storageManager.setBestScore(this.score);
   }
-
+  
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {
     this.storageManager.clearGameState();
-  } else {
+  } 
+  else {
     this.storageManager.setGameState(this.serialize());
   }
 

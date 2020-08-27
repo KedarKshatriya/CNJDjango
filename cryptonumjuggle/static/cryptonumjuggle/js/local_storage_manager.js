@@ -19,29 +19,29 @@ setInterval(function(){
   if(count==2 || count==1){
     $.ajax({
       type: "POST",   
-      url: "https://d51ddcd7e654.ngrok.io/setitem/",
+      url: "http://localhost:8000/setitem/",
       data: {"gameState" : JSON.stringify(gamevarstate),
               "wltaddr" : String(mainstore.getItem("wltaddr"))},
       async:false,
       success: function(){
-        console.log("Success POST")
+        //console.log("Success POST")
       },
       error: function(){
-        console.log("POST failed")
+       // console.log("POST failed")
       }
       });
   }
   else {
     $.ajax({
       type: "POST",  
-      url: "https://d51ddcd7e654.ngrok.io/setitem/",
+      url: "http://localhost:8000/setitem/",
       data: {"gameState" : JSON.stringify(gamevarstate),
               "wltaddr" : String(mainstore.getItem("wltaddr"))},
       success: function(){
-        console.log("Success POST")
+      //  console.log("Success POST")
       },
       error: function(){
-        console.log("POST failed")
+       // console.log("POST failed")
       }
       });
     }
@@ -62,8 +62,17 @@ alert(data);
 }*/
 
 
-function bestScoreSave(){
-  //code to save blockchain 
+function bestScoreSave() {
+  /*
+var wltaddr = String(mainstore.getItem("wltaddr"))
+          
+  RemixContract.setBest(wltaddr,bestScoreBlock).then(function(transaction){
+  console.log(transaction);
+  alert("Sent");
+  return transaction;
+  });
+
+  */
 }
 
 //to send to sqlite left
@@ -83,31 +92,43 @@ window.fakeStorage = {
     
   },
  
+
+  
   //best score fetching
   getItem: function (id) {
     if(String(id)=="gameState"){
-      console.log(mainstore.getItem("wltaddr"));
+     // console.log(mainstore.getItem("wltaddr"));
         $.ajax({
           type: 'GET',
           async: false,
-          url: "https://d51ddcd7e654.ngrok.io/getitem/",
+          url: "http://localhost:8000/getitem/",
           data: {"wltaddr" : String(mainstore.getItem("wltaddr"))},
           
           success:  function(data){
             var gamestatevar = String(data).replace(/@/g, '"');
-            console.log("getting data from server: "+gamestatevar.slice(1,-1));
-            //alert("geting from the server: "+gamestatevar.slice(1,-1));
+            
             data2[id] = String(gamestatevar.slice(1,-1));
             
-            console.log("getting some value: "+data2[id]+" with id:"+String(id) );
+           // console.log("getting some value: "+data2[id]+" with id:"+String(id) );
    
             }
             });
 
             return data2[id]
     }
-    else{
-      console.log("getting some value: "+data2[id]+" with id:"+String(id) );
+    else if (String(id)=="bestScore") {
+       var wltaddr = String(mainstore.getItem("wltaddr"));
+        var callBestScore = RemixContract.getBest(wltaddr).then(function(result){
+        alert("Fetching Data from Blockchain!");
+        console.log(result.best);
+        return result;
+        });
+        data2[id] = String(callBestScore.best);
+        return data2[id]
+      }
+
+    else {
+    
       return data2.hasOwnProperty(id) ? data2[id] : undefined;
     }
     
@@ -118,11 +139,11 @@ window.fakeStorage = {
     $.ajax({
       type: 'GET',
       async: false,
-      url: "https://d51ddcd7e654.ngrok.io/removeitem/",
+      url: "http://localhost:8000/removeitem/",
       data: {"wltaddr" : String(mainstore.getItem("wltaddr"))},
       
       success:  function(data){
-        console.log("Deleted game state");
+     //   console.log("Deleted game state");
         }
         });
     return delete data2[id];
@@ -154,6 +175,7 @@ function LocalStorageManager() {
   }
 };
 */
+
 // Best score getters/setters
 LocalStorageManager.prototype.getBestScore = function () {
   return this.storage.getItem(this.bestScoreKey) || 0;

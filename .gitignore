@@ -1,3 +1,4 @@
 *.pyc
 CNJDjango/__pycache__
 cryptonumjuggle/__pycache__
+db.sqlite3
