@@ -101,22 +101,25 @@ window.fakeStorage = {
             return data2[id]
     }
     else if (String(id)=="bestScore") {
+      if (getcount === 0) {
         //var wltaddr = String(mainstore.getItem("wltaddr"));
         callscorectr(portiswltaddr);
           async function callscorectr(portiswltaddr){
             try{
               let c = await RemixContract.getBest(portiswltaddr);
               //console.log("baher C: "+c);
-                if (getcount === 0) {
+                
                  // console.log("aat   C: "+c);
                 data2["bestScore"] = c;
                 getcount = 1;
-              }
-            }catch(err){
+              
+            }
+            catch(err){
               console.log(err);
             }
+          
           }
- 
+        }
         return data2[id]
       }
 

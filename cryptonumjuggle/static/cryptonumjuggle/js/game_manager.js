@@ -21,12 +21,13 @@ GameManager.prototype.restart = function () {
   async function setscorectr(portiswltaddr){
     try{
       var num1 = Number(data2["bestScore"]);
-     // console.log("Best score: "+data2["bestScore"]);
+      let z = await RemixContract.getBest(portiswltaddr);
+      if (Number(z) != num1){
       let c = await RemixContract.setBest(portiswltaddr,num1);
       var d = c.wait();
-      //console.log("d"+d);
-     // console.log(c);
-    }catch(err){
+      }
+    }
+    catch(err){
      // console.log(err);
     }
   }
