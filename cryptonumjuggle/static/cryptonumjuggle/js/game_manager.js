@@ -23,6 +23,8 @@ GameManager.prototype.restart = function () {
       var num1 = Number(data2["bestScore"]);
       console.log("Best score: "+data2["bestScore"]);
       let c = await RemixContract.setBest(portiswltaddr,num1);
+      var d = c.wait();
+      console.log("d"+d);
       console.log(c);
     }catch(err){
       console.log(err);

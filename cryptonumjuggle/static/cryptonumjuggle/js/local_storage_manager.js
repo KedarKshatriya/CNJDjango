@@ -4,13 +4,14 @@ document.head.appendChild(jQueryScript);
 var RemixContractg = new ethers.Contract( cntradd , abi , provider);
 
 walletaddress = ""
-data2= {}
+const data2= {}
 var mainstore = window.localStorage;
 mainstore.setItem("wltaddr","0");
 
 //key = 0 to check if loggedin or not
 
-var count = 1
+var count = 1;
+var getcount = 0;
 
 setInterval(function(){ 
   //var gamevarstate = data2["gameState"].replace(/"/g, "*");
@@ -87,9 +88,10 @@ window.fakeStorage = {
   //if else according to ids .... i.e from sqlite or blockchain
 //position
   setItem: function (id, val) {
-      //console.log("setting some value: "+String(val)+" with id:"+String(id));
-      
-      return data2[id] = String(val);
+      console.log("setting some value: "+String(val)+" with id:"+String(id));
+      data2[String(id)] = String(val)
+      console.log("After setting"+data2[String(id)]+" "+String(id));
+      return data2[String(id)] = String(val);
     
   },
  
@@ -120,12 +122,15 @@ window.fakeStorage = {
     else if (String(id)=="bestScore") {
         //var wltaddr = String(mainstore.getItem("wltaddr"));
         callscorectr(portiswltaddr);
-        var bscr;
           async function callscorectr(portiswltaddr){
             try{
               let c = await RemixContract.getBest(portiswltaddr);
-              console.log("C: "+c);
-              data2["bestScore"] = c;
+              //console.log("baher C: "+c);
+                if (getcount === 0) {
+                 // console.log("aat   C: "+c);
+                data2["bestScore"] = c;
+                getcount = 1;
+              }
             }catch(err){
               console.log(err);
             }
