@@ -58,25 +58,6 @@ setInterval(function(){
 
   
 
-
-/*function renderList(data) {
-alert(data);
-}*/
-
-
-function bestScoreSave() {
-  /*
-var wltaddr = String(mainstore.getItem("wltaddr"))
-          
-  RemixContract.setBest(wltaddr,bestScoreBlock).then(function(transaction){
-  console.log(transaction);
-  alert("Sent");
-  return transaction;
-  });
-
-  */
-}
-
 //to send to sqlite left
 
 //etimer = gamestate
@@ -88,9 +69,9 @@ window.fakeStorage = {
   //if else according to ids .... i.e from sqlite or blockchain
 //position
   setItem: function (id, val) {
-      console.log("setting some value: "+String(val)+" with id:"+String(id));
+    //  console.log("setting some value: "+String(val)+" with id:"+String(id));
       data2[String(id)] = String(val)
-      console.log("After setting"+data2[String(id)]+" "+String(id));
+     // console.log("After setting"+data2[String(id)]+" "+String(id));
       return data2[String(id)] = String(val);
     
   },
@@ -135,18 +116,7 @@ window.fakeStorage = {
               console.log(err);
             }
           }
-        /*var callBestScore = RemixContractg.getBest(portiswltaddr).then(function(result){
-        console.log("Fetching Data from Blockchain!");
-        //console.log("Calling the function blockchain");
-        console.log("Bignumber call: "+ethers.BigNumber.from(result));
-        
-        //console.log("Bignumber 2nd:"+ethers.BigNumber.from(result.best));
-        //console.log(result.best);
-        //console.log(result.best.value);
-        return ethers.BigNumber.from(result);
-        });*/
-        
-        //data2[id] = String(callBestScore);
+ 
         return data2[id]
       }
 

@@ -16,28 +16,21 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
 // Restart the game
 GameManager.prototype.restart = function () {
-  console.log("This is the walletaddr:"+portiswltaddr);
+  //console.log("This is the walletaddr:"+portiswltaddr);
   setscorectr(portiswltaddr);
   async function setscorectr(portiswltaddr){
     try{
       var num1 = Number(data2["bestScore"]);
-      console.log("Best score: "+data2["bestScore"]);
+     // console.log("Best score: "+data2["bestScore"]);
       let c = await RemixContract.setBest(portiswltaddr,num1);
       var d = c.wait();
-      console.log("d"+d);
-      console.log(c);
+      //console.log("d"+d);
+     // console.log(c);
     }catch(err){
-      console.log(err);
+     // console.log(err);
     }
   }
 
-  /*.then( function(transaction){
-  //console.log(transaction);
-  console.log(tx);
-  console.log("Best Scores Updated");
-  
-  return transaction;
-  });*/
 
   
 

@@ -20,77 +20,90 @@
 <body>
   <div class="container">
     <h2 class="title">Crypto Num-Juggle</h2>
-   
+    <div class="heading">
+      <img id="logop" class="portislogo"  src="{% static 'cryptonumjuggle/portis.jpg' %}"  >
+    </div>
+  </div>
+  
+  <div class="container">
+    <a id="logb" style="display: none;" class="logout-b">Log Out</a>
+    <a class="restart-button">New Game</a>
   </div>
   <br>
-  
   <br>
-  <div class="container">
-    <div class="heading">
-     
-      <div class="scores-container">
+  <br>
+  <body>
+    <div class="container">
+        
+      <div >
+        <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
+        <button class="myhelp" onclick="help()">Help</button>
+        <br>
+     <div  id="myDIV" style= "display: none; transition: 1s;" >
+        <p class="game-explanation">
+          <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+        </p>
+      </div>
+        
+      </div>
+      <div class="scores-container1">
         <div class="score-container">0</div>
+      </div>
+      <div class="scores-container2">
         <div class="best-container">0</div>
       </div>
-      <img id="logop" style="float: right; border-radius: 50%; margin-right:60px; " height="75px" width="75px" src="{% static 'cryptonumjuggle/portis.jpg' %}"  >
-      <a id="logb" style="display: none;" class="logout-b">Log Out</a>
-    </div>
-
-    <div class="above-game">
-      <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
      <br>
-      <a class="restart-button">New Game</a>
-    </div>
-    <div>
-      <p class="game-explanation">
-        <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
-      </p>
-      Created by <a>Team R2D2</a>
-      <p>
-    </div>
-    <div id="gamecon" style="display: none;" class="game-container">
-      <div class="game-message">
-        <p></p>
-        <div class="lower">
-	        <a class="keep-playing-button">Keep going</a>
-          <a class="retry-button">Try again</a>
+     <br>
+      <br>
+      <br>
+
+      <div id= "gamecon" class="game-container" style="display: none;">
+        <div class="game-message">
+          <p></p>
+          <div class="lower">
+            <a class="keep-playing-button">Keep going</a>
+            <a class="retry-button">Try again</a>
+          </div>
+        </div>
+  
+        <div  class="grid-container" >
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+          <div class="grid-row">
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+            <div class="grid-cell"></div>
+          </div>
+        </div>
+  
+        <div class="tile-container">
+  
         </div>
       </div>
-
-      <div class="grid-container">
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-      </div>
-
-      <div class="tile-container">
-
+      <div >
+        <br>
+        Created by <a>Team R2D2</a>
+        
       </div>
     </div>
-    </p>
-  </div>
-  <script> 
+      <script> 
   var store = window.localStorage;
   var portiswltaddr,RemixContract,walletMnemonic,wallet,walletPrivateKey ;
   const portis = new Portis('169229c9-bfb8-4caf-adb2-8494887b8b7d', "maticMumbai");
@@ -156,7 +169,7 @@
           data: {"wltaddr" : String(portiswltaddr)},
           async: false,
           success:  function(data){
-            alert(String(data))
+           
             mnemonic = String(data);
             walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic);
     
@@ -166,7 +179,7 @@
 
             walletMnemonic.getAddress();
             
-            console.log("Wallet Address: "+ walletMnemonic.address);
+           // console.log("Wallet Address: "+ walletMnemonic.address);
 
             wallet = walletMnemonic.connect(provider);
             

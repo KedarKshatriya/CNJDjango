@@ -25,3 +25,14 @@ Tile.prototype.serialize = function () {
     value: this.value
   };
 };
+
+function help() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+   x.style.display = "block";
+    //x.style.opacity = "100";
+  } else {
+    x.style.display = "none";
+    //x.style.opacity = "0";
+  }
+}
