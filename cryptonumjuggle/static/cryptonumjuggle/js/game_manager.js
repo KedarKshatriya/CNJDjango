@@ -23,13 +23,23 @@ GameManager.prototype.restart = function () {
       var num1 = Number(data2["bestScore"]);
       let z = await RemixContract.getBest(portiswltaddr);
       if (Number(z) != num1){
-      let c = await RemixContract.setBest(portiswltaddr,num1);
-      var d = c.wait();
+        let c = await RemixContract.setBest(portiswltaddr,num1);
+
+        var d = c.wait();
       }
+      /*if(num1>=3500){
+        var count;
+        $.a
+        if(count==0){
+          $ajax.
+        }
+        sendMoney();
+      }*/
     }
     catch(err){
      // console.log(err);
     }
+
   }
 
 
