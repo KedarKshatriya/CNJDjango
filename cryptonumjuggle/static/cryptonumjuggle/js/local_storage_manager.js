@@ -1,6 +1,7 @@
 var jQueryScript = document.createElement('script');  
 jQueryScript.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js');
 document.head.appendChild(jQueryScript);
+var RemixContractg = new ethers.Contract( cntradd , abi , provider);
 
 walletaddress = ""
 data2= {}
@@ -118,17 +119,27 @@ window.fakeStorage = {
     }
     else if (String(id)=="bestScore") {
         //var wltaddr = String(mainstore.getItem("wltaddr"));
-
-        var callBestScore = RemixContract.functions.getBest(portiswltaddr).then(function(result){
+        callscorectr(portiswltaddr);
+        var bscr;
+          async function callscorectr(portiswltaddr){
+            try{
+              let c = await RemixContract.getBest(portiswltaddr);
+              console.log("C: "+c);
+              data2["bestScore"] = c;
+            }catch(err){
+              console.log(err);
+            }
+          }
+        /*var callBestScore = RemixContractg.getBest(portiswltaddr).then(function(result){
         console.log("Fetching Data from Blockchain!");
         //console.log("Calling the function blockchain");
         console.log("Bignumber call: "+ethers.BigNumber.from(result));
-        data2[id] = String(ethers.BigNumber.from(result));
+        
         //console.log("Bignumber 2nd:"+ethers.BigNumber.from(result.best));
         //console.log(result.best);
         //console.log(result.best.value);
         return ethers.BigNumber.from(result);
-        });
+        });*/
         
         //data2[id] = String(callBestScore);
         return data2[id]

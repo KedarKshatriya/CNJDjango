@@ -21,6 +21,7 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('fetchapi/', views.fetchapi, name='fetchapi'),
     path('getitem/', views.getitem, name='getitem'),
     path('setitem/', views.setitem, name='setitem'),
     path('removeitem/', views.removeitem, name='removeitem'),
