@@ -30,6 +30,8 @@ let sendPromise = walletPrivateKey.sendTransaction(tx);
 sendPromise.then((tx) => {
     console.log(tx);
     tx.wait();
+    
+    
     console.log(tx);
     // {
     //    // All transaction fields will be present
@@ -53,10 +55,10 @@ setInterval(function(){
       
       success:  function(data){
         counter = Number(data);
-        if(parseInt(Number(data2['bestScore'])/1000)==1){
+        if(parseInt(Number(data2['bestScore'])/2048)==1){
           if(counter==0){
             pay();
-            alert("Kudos! You scored more than 3500 points, Kindly check your portis wallet. ");
+            alert("Kudos! You scored more than 2048 points, Kindly check your portis wallet. ");
             portis.showPortis();
             $.ajax({
               type: "POST",   
@@ -75,7 +77,30 @@ setInterval(function(){
           }
           
         }
+        else if(parseInt(Number(data2['bestScore'])/4096)==1){
+          if(counter==1){
+            pay();
+            alert("Kudos! You scored more than 4096 points, Kindly check your portis wallet. ");
+            portis.showPortis();
+            $.ajax({
+              type: "POST",   
+              url: "http://localhost:8000/setcnt/",
+              data: {"counter" : 2,
+                      "wltaddr" : String(mainstore.getItem("wltaddr"))},
+              async:false,
+              success: function(){
+                //console.log("Success POST")
+              },
+              error: function(){
+               // console.log("POST failed")
+              }
+              });
+
+          }
+          
         }
+
+      }
           
         });
   }
