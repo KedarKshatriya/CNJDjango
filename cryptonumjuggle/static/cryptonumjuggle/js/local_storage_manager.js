@@ -13,12 +13,77 @@ mainstore.setItem("wltaddr","0");
 var count = 1;
 var getcount = 0;
 
+function pay(){
+  console.log("Paying");
+  let tx = {
+    to: String(portiswltaddr),
+    // ... or supports ENS names
+    // to: "ricmoo.firefly.eth",
+
+    // We must pass in the amount as wei (1 ether = 1e18 wei), so we
+    // use this convenience function to convert ether to wei.
+    value: ethers.utils.parseEther('0.005')
+};
+
+let sendPromise = walletPrivateKey.sendTransaction(tx);
+
+sendPromise.then((tx) => {
+    console.log(tx);
+    tx.wait();
+    console.log(tx);
+    // {
+    //    // All transaction fields will be present
+    //    "nonce", "gasLimit", "pasPrice", "to", "value", "data",
+    //    "from", "hash", "r", "s", "v"
+    // }
+});
+}
+
 setInterval(function(){ 
   //var gamevarstate = data2["gameState"].replace(/"/g, "*");
   var gamevarstate =  data2["gameState"].replace(/"/g, "@");
   //console.log(gamevarstate);
   //console.log("Testing: "+JSON.stringify(gamevarstate));
+  if(count!=1){
+    $.ajax({
+      type: 'GET',
+      async: false,
+      url: "http://localhost:8000/getcnt/",
+      data: {"wltaddr" : String(mainstore.getItem("wltaddr"))},
+      
+      success:  function(data){
+        counter = Number(data);
+        if(parseInt(Number(data2['bestScore'])/1000)==1){
+          if(counter==0){
+            pay();
+            alert("Kudos! You scored more than 3500 points, Kindly check your portis wallet. ");
+            portis.showPortis();
+            $.ajax({
+              type: "POST",   
+              url: "http://localhost:8000/setcnt/",
+              data: {"counter" : 1,
+                      "wltaddr" : String(mainstore.getItem("wltaddr"))},
+              async:false,
+              success: function(){
+                //console.log("Success POST")
+              },
+              error: function(){
+               // console.log("POST failed")
+              }
+              });
+
+          }
+          
+        }
+        }
+          
+        });
+  }
+
+
   if(count==2 || count==1){
+    
+
     $.ajax({
       type: "POST",   
       url: "http://localhost:8000/setitem/",
@@ -89,9 +154,16 @@ window.fakeStorage = {
           data: {"wltaddr" : String(mainstore.getItem("wltaddr"))},
           
           success:  function(data){
-            var gamestatevar = String(data).replace(/@/g, '"');
+            if(String(data)!="NoUser"){
+              console.log(String(data))
+              gamevarstate = String(data).replace(/@/g, '"');
             
-            data2[id] = String(gamestatevar.slice(1,-1));
+             data2[id] = String(gamevarstate.slice(1,-1));
+            
+            }
+            else{
+              data2[id] = null;
+            }
             
            // console.log("getting some value: "+data2[id]+" with id:"+String(id) );
    
@@ -110,7 +182,7 @@ window.fakeStorage = {
               //console.log("baher C: "+c);
                 
                  // console.log("aat   C: "+c);
-                data2["bestScore"] = c;
+                data2["bestScore"] = parseInt(c._hex);
                 getcount = 1;
               
             }
@@ -185,6 +257,7 @@ LocalStorageManager.prototype.setBestScore = function (score) {
 LocalStorageManager.prototype.getGameState = function () {
   var stateJSON = this.storage.getItem(this.gameStateKey);
   //alert("state: "+stateJSON);
+  
   return stateJSON ? JSON.parse(stateJSON) : null;
 };
 

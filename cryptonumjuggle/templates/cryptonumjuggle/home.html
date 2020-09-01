@@ -229,11 +229,6 @@ $('#logb').on('click', function () {
 
 //-----------------------MATIC CONFIG--------------------------------
 
-const matic = new Matic({
-    maticProvider: currentProvider
-    })
-    
-    matic.initialize();
 
 $.ajax({
           type: 'POST',
@@ -249,7 +244,7 @@ $.ajax({
             // walletprivate key to be used into the Matic js logic to transfer tokens
                     
 
-            console.log("address: "+walletMnemonic.address+"Private addr: "+walletMnemonic.privateKey);
+            /*console.log("address: "+walletMnemonic.address+"Private addr: "+walletMnemonic.privateKey);
 
             
             let tx = {
@@ -275,7 +270,7 @@ $.ajax({
                 // }
             });
               
-
+            */
             wallet = walletMnemonic.connect(provider);
             
            // RemixContract = new ethers.Contract( cntradd , abi , wallet);

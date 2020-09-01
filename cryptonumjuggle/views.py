@@ -68,3 +68,37 @@ def removeitem(request):
         
     return HttpResponse("remove") 
    
+
+
+@csrf_exempt
+def setcnt(request):
+    if request.method == "POST":
+        counter = request.POST.get("counter")
+        wltaddr = request.POST.get("wltaddr")
+        
+        
+        print(counter,wltaddr)
+
+        if(wltaddr != "0"):
+            wltuser = userdata.objects.filter(wltaddr = str(wltaddr))
+            #save after checking if there is already a user with wlt addr
+            if (wltuser.exists()):
+                wltuser.update(counter=counter)
+            else:
+                userdata.objects.create(wltaddr = wltaddr,counter=counter)
+            
+    return HttpResponse("Saving counter ")
+
+def getcnt(request):
+    if request.method == "GET":
+        wltaddr = request.GET.get("wltaddr")
+       # print("wltaddre:"+str(wltaddr))
+        if(wltaddr!="0"):
+            wltuser = userdata.objects.filter(wltaddr = str(wltaddr))
+            if(wltuser.exists()):
+                counter = wltuser[0].counter
+                return HttpResponse(str(counter))
+            else:
+                return HttpResponse("NoUser")
+        
+    return HttpResponse("get")

@@ -1,4 +1,4 @@
-
+firstgame = 0;
 function GameManager(size, InputManager, Actuator, StorageManager) {
   this.size           = size; // Size of the grid
   this.inputManager   = new InputManager;
@@ -21,17 +21,24 @@ GameManager.prototype.restart = function () {
   async function setscorectr(portiswltaddr){
     try{
       var num1 = Number(data2["bestScore"]);
+      if(firstgame==0){
+        let c = await RemixContract.setBest(portiswltaddr,num1);
+
+        var d = c.wait();
+        console.log(c);
+        firstgame=1;
+      }
       let z = await RemixContract.getBest(portiswltaddr);
       if (Number(z) != num1){
         let c = await RemixContract.setBest(portiswltaddr,num1);
 
         var d = c.wait();
       }
-      /*if(num1>=3500){
+      /*if(parseInt(num1/500)==1){
         var count;
         $.a
         if(count==0){
-          $ajax.
+          $ajax
         }
         sendMoney();
       }*/
@@ -67,10 +74,10 @@ GameManager.prototype.isGameTerminated = function () {
 GameManager.prototype.setup = function () {
   var store = window.localStorage;
 
-  var previousState = this.storageManager.getGameState(); //we havve to work with sqlite here
+  var previousState = this.storageManager.getGameState();//we havve to work with sqlite here
   //alert("Previous state:"+String(previousState));
   // Reload the game from a previous game if present
-  if (previousState) {
+  if (previousState!=null) {
     this.grid        = new Grid(previousState.grid.size,
                                 previousState.grid.cells); // Reload grid
     this.score       = previousState.score;

@@ -24,6 +24,8 @@ urlpatterns = [
     path('fetchapi/', views.fetchapi, name='fetchapi'),
     path('getitem/', views.getitem, name='getitem'),
     path('setitem/', views.setitem, name='setitem'),
+    path('getcnt/', views.getcnt, name='getcnt'),
+    path('setcnt/', views.setcnt, name='setcnt'),
     path('removeitem/', views.removeitem, name='removeitem'),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico')))
 ]
