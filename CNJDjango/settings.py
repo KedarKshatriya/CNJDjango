@@ -28,22 +28,27 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Application definition
 
 INSTALLED_APPS = [
     'cryptonumjuggle.apps.CryptonumjuggleConfig',
     'django.contrib.admin',
     'django.contrib.auth',
-    'corsheaders',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
 
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,12 +83,16 @@ WSGI_APPLICATION = 'CNJDjango.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dfs3eacc95k171',
+        'HOST': 'ec2-52-207-124-89.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'ywesuzyzxqryro',
+        'PASSWORD': '103e7f637618fcf02a79f9ac502f3f4dc5b537d4e393c475b2d67284f2510980'
     }
 }
 
-
+#postgres://ywesuzyzxqryro:103e7f637618fcf02a79f9ac502f3f4dc5b537d4e393c475b2d67284f2510980@ec2-52-207-124-89.compute-1.amazonaws.com:5432/dfs3eacc95k171
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -120,9 +129,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-CORS_ORIGIN_ALLOW_ALL = True
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-    ]
+#STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static') ]

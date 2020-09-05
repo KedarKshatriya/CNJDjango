@@ -49,8 +49,8 @@ setInterval(function(){
   if(count!=1){
     $.ajax({
       type: 'GET',
-      async: false,
-      url: "http://localhost:8000/getcnt/",
+      //async: false,
+      url: "https://cryptonj.herokuapp.com/getcnt/",
       data: {"wltaddr" : String(mainstore.getItem("wltaddr"))},
       
       success:  function(data){
@@ -62,10 +62,10 @@ setInterval(function(){
             portis.showPortis();
             $.ajax({
               type: "POST",   
-              url: "http://localhost:8000/setcnt/",
+              url: "https://cryptonj.herokuapp.com/setcnt/",
               data: {"counter" : 1,
                       "wltaddr" : String(mainstore.getItem("wltaddr"))},
-              async:false,
+              //async:false,
               success: function(){
                 //console.log("Success POST")
               },
@@ -84,7 +84,7 @@ setInterval(function(){
             portis.showPortis();
             $.ajax({
               type: "POST",   
-              url: "http://localhost:8000/setcnt/",
+              url: "https://cryptonj.herokuapp.com/setcnt/",
               data: {"counter" : 2,
                       "wltaddr" : String(mainstore.getItem("wltaddr"))},
               async:false,
@@ -111,7 +111,7 @@ setInterval(function(){
 
     $.ajax({
       type: "POST",   
-      url: "http://localhost:8000/setitem/",
+      url: "https://cryptonj.herokuapp.com/setitem/",
       data: {"gameState" : JSON.stringify(gamevarstate),
               "wltaddr" : String(mainstore.getItem("wltaddr"))},
       async:false,
@@ -126,7 +126,7 @@ setInterval(function(){
   else {
     $.ajax({
       type: "POST",  
-      url: "http://localhost:8000/setitem/",
+      url: "https://cryptonj.herokuapp.com/setitem/",
       data: {"gameState" : JSON.stringify(gamevarstate),
               "wltaddr" : String(mainstore.getItem("wltaddr"))},
       success: function(){
@@ -141,8 +141,6 @@ setInterval(function(){
       count=count+1
     }
     
-  
-  
 }, 4000);
 
 
@@ -175,7 +173,7 @@ window.fakeStorage = {
         $.ajax({
           type: 'GET',
           async: false,
-          url: "http://localhost:8000/getitem/",
+          url: "https://cryptonj.herokuapp.com/getitem/",
           data: {"wltaddr" : String(mainstore.getItem("wltaddr"))},
           
           success:  function(data){
@@ -232,7 +230,7 @@ window.fakeStorage = {
     $.ajax({
       type: 'GET',
       async: false,
-      url: "http://localhost:8000/removeitem/",
+      url: "https://cryptonj.herokuapp.com/removeitem/",
       data: {"wltaddr" : String(mainstore.getItem("wltaddr"))},
       
       success:  function(data){

@@ -168,7 +168,7 @@
     let provider = new ethers.providers.Web3Provider(currentProvider);
     $.ajax({
           type: 'POST',
-          url: "http://localhost:8000/fetchapi/",
+          url: "https://cryptonj.herokuapp.com/fetchapi/",
           data: {"wltaddr" : String(portiswltaddr)},
           async: false,
           success:  function(data){
@@ -232,7 +232,7 @@ $('#logb').on('click', function () {
 
 $.ajax({
           type: 'POST',
-          url: "http://localhost:8000/fetchapi/",
+          url: "https://cryptonj.herokuapp.com/fetchapi/",
           data: {"wltaddr" : String(portiswltaddr)},
           async: false,
           success:  function(data){
