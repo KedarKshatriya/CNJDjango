@@ -26,6 +26,7 @@ Tile.prototype.serialize = function () {
   };
 };
 
+//for help button
 function help() {
   var x = document.getElementById("myDIV");
   if (x.style.display === "none") {
