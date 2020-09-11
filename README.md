@@ -3,21 +3,17 @@
 
 <p align="center">
 <br>
-<img src="images/dash.png" width=1000  >
+<img src="images/dash.png" width=900  >
 </p>
 <br>
 
 ## For Dapp Jedi Hackathon by Team R2-D2. 
 <br>
-
-## Submission URL: https://github.com/KedarKshatriya/CNJDjango
+Submission URL: https://github.com/KedarKshatriya/CNJDjango
 <br>
-
-## You can check our project live at: https://cryptonj.herokuapp.com/
+You can check our project live at: https://cryptonj.herokuapp.com/
 <br>
-
-## Presentation Link: https://www.youtube.com/watch?v=FnF3U1fO2Gs&feature=emb_title
-
+Presentation Link: https://www.youtube.com/watch?v=FnF3U1fO2Gs&feature=emb_title
 <br>
 
 ## The problem Crypto Num-Juggle solves
